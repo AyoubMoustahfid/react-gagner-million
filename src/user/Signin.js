@@ -38,7 +38,7 @@ function Signin(props) {
                       positionClass : "toastr-bottom-left"
                   })
 
-                  localStorage.setItem('jwt-info', JSON.stringify(user))
+                  localStorage.setItem('jwt_info', JSON.stringify(user))
                   props.history.push('/')
               }
           }).catch(err => toastr.error(err, "Server error !", {
@@ -46,7 +46,7 @@ function Signin(props) {
           }))
     }
 
-    const form = () => {
+    const form = () => (
       <div>
       <form onSubmit={submitSignin}>
       <div class="mb-3">
@@ -62,17 +62,18 @@ function Signin(props) {
           <button type="submit" class="btn btn-primary">Login</button>
       </div>
       </form>
+      {JSON.stringify(user)}
       </div>
-    }
+    )
 
-    
+
 
     return (
         <div>
           <Layout title="Sign In" description="Sign in Node" className="container">
           <div className="row">
               <div className="col-6 mx-auto">
-                {form()}
+              { form() } 
               </div>
           </div>
             

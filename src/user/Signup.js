@@ -40,7 +40,7 @@ function Signup(props) {
           }))
     }
 
-    const form = () => {
+    const form = () => (
         <form onSubmit={submitSignup}>
         <div class="mb-3">
             <label htmlFor="username" className="form-label">UserName :</label>
@@ -59,7 +59,7 @@ function Signup(props) {
             <button type="submit" class="btn btn-primary">Signup</button>
         </div>
         </form>
-    }
+    )
 
     return (
         <div className="container">
