@@ -49,7 +49,7 @@ function Signin(props) {
     const form = () => (
       <div>
       <form onSubmit={submitSignin}>
-      <div class="mb-3">
+      <div className="mb-3">
           <label htmlFor="email" className="form-label">Email address</label>
           <input onChange={handleChange} type="email" className="form-control" id="email" aria-describedby="emailHelp"/>
       </div>
