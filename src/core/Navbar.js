@@ -23,7 +23,7 @@ const  Navbar = (props) => {
         props.history.push('/signin')
 
       })
-      .catch()
+      
 
 }
     return (

@@ -7,13 +7,13 @@ import {API_URL} from "./../config"
 
 function Signin(props) {
 
-    const [user, setUser] = useState({
+    const [participant, setParticipant] = useState({
         email : "",
         password : ""
     })
 
     const handleChange = e => {
-        setUser({...user, [e.target.id]: e.target.value})
+        setParticipant({...participant, [e.target.id]: e.target.value})
     }
 
 
@@ -26,7 +26,7 @@ function Signin(props) {
                 "Accept": "application/json",
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify(user)
+            body: JSON.stringify(participant)
         }).then(res => res.json())
           .then(res => {
               if(res.error){
@@ -38,7 +38,7 @@ function Signin(props) {
                       positionClass : "toastr-bottom-left"
                   })
 
-                  localStorage.setItem('jwt_info', JSON.stringify(user))
+                  localStorage.setItem('jwt_info', JSON.stringify(res))
                   props.history.push('/')
               }
           }).catch(err => toastr.error(err, "Server error !", {
@@ -50,7 +50,7 @@ function Signin(props) {
       <div>
       <form onSubmit={submitSignin}>
       <div class="mb-3">
-          <label htmlFor="email" classNam="form-label">Email address</label>
+          <label htmlFor="email" className="form-label">Email address</label>
           <input onChange={handleChange} type="email" className="form-control" id="email" aria-describedby="emailHelp"/>
       </div>
       <div class="mb-3">
@@ -62,7 +62,7 @@ function Signin(props) {
           <button type="submit" class="btn btn-primary">Login</button>
       </div>
       </form>
-      {JSON.stringify(user)}
+      {JSON.stringify(participant)}
       </div>
     )
 
