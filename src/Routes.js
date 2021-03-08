@@ -8,6 +8,8 @@ import Home from "./core/Home"
 import GroupMember from "./core/GroupMember"
 import Navbar from "./core/Navbar"
 import Dashboard from "./admin/Dashboard"
+import AddQuestion from "./admin/AddQuestion"
+
 
 
 import PrivateRoute from "./auth/PrivateRoute"
@@ -21,6 +23,7 @@ function Routes() {
         <BrowserRouter>
             <Navbar/>
             <Switch>
+              <AdminRoute path='/admin/dashboard/participant' exact component={AddQuestion} />
               <AdminRoute path='/admin/dashboard' exact component={Dashboard} />
               <PrivateRoute path='/' exact component={Home} />
               <PrivateRoute path="/group_member" exact component={GroupMember} />

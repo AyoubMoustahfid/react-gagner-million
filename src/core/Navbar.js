@@ -7,67 +7,80 @@ import toastr from 'toastr';
 import "toastr/build/toastr.css";
 
 
-const  Navbar = (props) => {
+const Navbar = (props) => {
 
-  const signout = () => {
+const signout = () => {
 
-    fetch(`${API_URL}/signout`)
-      .then(() => {
+fetch(`${API_URL}/signout`)
+.then(() => {
 
-        toastr.info('User SignOut', 'Next Time', {
-            positionClass: "toast-bottom-left",
-        })
+toastr.info('User SignOut', 'Next Time', {
+positionClass: "toast-bottom-left",
+})
 
-        localStorage.removeItem('jwt_info')
+localStorage.removeItem('jwt_info')
 
-        props.history.push('/signin')
+props.history.push('/signin')
 
-      })
-      
+})
+
 
 }
-    return (
-        <div>
-        <nav className="navbar navbar-expand-lg navbar-light bg-light">
-        <div className="container-fluid">
-          <Link className="navbar-brand" to={`${isAuthenticated()  ? '/' : ''}/signin`}>Navbar</Link>
-          <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span className="navbar-toggler-icon"></span>
-          </button>
-          <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-              {!isAuthenticated() && (
+return (
+<div>
+  <nav className="navbar navbar-expand-lg navbar-light bg-light">
+    <div className="container-fluid">
+      <Link className="navbar-brand" to={`${isAuthenticated() ? '/' : '' }/signin`}>Navbar </Link> <button
+        className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span className="navbar-toggler-icon"></span>
+      </button>
+      <div className="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+          {!isAuthenticated() && (
 
-                <Fragment>
-                <li className="nav-item">
-                  <Link className="nav-link active" aria-current="page" to="/signin">Signin</Link>
-                </li>
-                <li className="nav-item">
-                  <Link className="nav-link active" aria-current="page" to="/signup">Signup</Link>
-                </li>
-            </Fragment>
-              )}
-
-              <li className="nav-item">
-                  <Link className="nav-link active" aria-current="page" to={`${isAuthenticated() && isAuthenticated().participant.role === 1 ?'/admin' : ''}/dashboard`}>Dashboard</Link>
-                </li>
-            </ul>
-            
-              <ul className="navbar-nav ml-auto mb-2 mb-lg-0">
-              {isAuthenticated() && (
-              <Fragment>
-              <li className="nav-link" style={{cursor: "pointer"}} onClick={signout}>Signout</li>
-
-              </Fragment>
-              )}
-            </ul>
-           
+          <Fragment>
+            <li className="nav-item">
+              <Link className="nav-link active" aria-current="page" to="/signin">Signin</Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link active" aria-current="page" to="/signup">Signup</Link>
+            </li>
+          </Fragment>
+          )}
           
-          </div>
-        </div>
-      </nav>
-        </div>
-    )
+
+    
+
+          <li className="nav-item dropdown">
+          <Link className="nav-link dropdown-toggle" aria-current="page" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Dashboard </Link> 
+            <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
+              <Fragment>
+              <li>
+                <Link class="dropdown-item" to={`${isAuthenticated() && isAuthenticated().participant.role===1 ?'/admin' : '' }/dashboard/participant`} >Participant</Link>
+              </li>
+
+              <li>
+                <Link class="dropdown-item" to={`${isAuthenticated() && isAuthenticated().participant.role===1 ?'/admin' : '' }/dashboard`} >Question</Link>
+              </li>
+              </Fragment>
+            </ul>
+          </li>
+        </ul> 
+        <ul className="navbar-nav ml-auto mb-2 mb-lg-0">
+            {isAuthenticated() && (
+            <Fragment>
+               <li className="nav-link" style={{cursor: "pointer"}} onClick={signout}>Signout</li>
+             </Fragment>
+          )}
+        </ul>
+
+
+      </div>
+    </div>
+  </nav>
+</div>
+)
 }
 
 export default Navbar
