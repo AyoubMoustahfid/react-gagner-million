@@ -7,9 +7,11 @@ import Signup from "./user/Signup"
 import Home from "./core/Home"
 import GroupMember from "./core/GroupMember"
 import Navbar from "./core/Navbar"
+import Dashboard from "./admin/Dashboard"
 
 
 import PrivateRoute from "./auth/PrivateRoute"
+import AdminRoute from "./auth/AdminRoute"
 
 
 // Import All Component Page
@@ -19,6 +21,7 @@ function Routes() {
         <BrowserRouter>
             <Navbar/>
             <Switch>
+              <AdminRoute path='/admin/dashboard' exact component={Dashboard} />
               <PrivateRoute path='/' exact component={Home} />
               <PrivateRoute path="/group_member" exact component={GroupMember} />
               <Route path="/signin" exact component={Signin}/>

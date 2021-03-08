@@ -47,6 +47,10 @@ const  Navbar = (props) => {
                 </li>
             </Fragment>
               )}
+
+              <li className="nav-item">
+                  <Link className="nav-link active" aria-current="page" to={`${isAuthenticated() && isAuthenticated().participant.role === 1 ?'/admin' : ''}/dashboard`}>Dashboard</Link>
+                </li>
             </ul>
             
               <ul className="navbar-nav ml-auto mb-2 mb-lg-0">

@@ -53,16 +53,8 @@ function Home(props) {
                    positionClass: "toastr-bottom-left"
                 })
 
-             
-                const participant = JSON.parse(codeStorage).data.groupMember.participant
-                
-                if(participant.length > 3){
-                    props.history.push('/group_member')
-                }else{
-                    return toastr.error('If you check are 4 participant in Group', 'Has not 4 participant', {
-                        positionClass: "toastr-bottom-left"
-                    })
-                }
+                props.history.push('/group_member')
+               
            }
        })
         
