@@ -28,37 +28,11 @@ function Home(props) {
 
                 localStorage.setItem('group_member', JSON.stringify(res.data))
 
-                props.history.push('/group_member')
+                props.history.push('/game')
            }
        })
     }
 
-    // =================== Start Code Creation Method Rejoindre in Group Member ============================
-    const rejoindre = () => {
-         var codeStorage = localStorage.getItem('group_member')
-         const code = JSON.parse(codeStorage).data.groupMember.code;
-
-
-         axios.put(`${API_URL}/groupMember/rejoindre/${code}`, {participant: participant._id}, {
-           headers: {
-               "Authorization": `Bearer ${token}`
-           }
-       }).then(res => {
-           if(res.error){
-            toastr.warning(res.error, 'Please Check Click !', {
-                   positionClass: "toastr-bottom-left"
-                })  
-           }else{
-            toastr.success('Group Member is Created', 'Welcome in Your Group Member', {
-                   positionClass: "toastr-bottom-left"
-                })
-
-                props.history.push('/group_member')
-               
-           }
-       })
-        
-    }
 
     return (
         <div className="container py-5">
@@ -74,7 +48,7 @@ function Home(props) {
                      </div>
                      <div className="col-12 col-md-6">
                         <div className="d-grid">
-                            <Link className="btn btn-primary" onClick={rejoindre}>Rejoindre</Link>
+                            <Link className="btn btn-primary" to="/rejoindre">Rejoindre</Link>
                         </div>
                      </div>
                  </div>

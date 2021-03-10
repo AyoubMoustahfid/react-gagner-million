@@ -9,7 +9,9 @@ function Signup(props) {
     const [user, setUser] = useState({
         username: "",
         email: "",
-        password: ""
+        password: "",
+        age : 0,
+        phone: ""
     })
 
     const handleChange = e => {
@@ -53,6 +55,16 @@ function Signup(props) {
         <div class="mb-3">
             <label htmlFor="password" classNam="form-label">Password :</label>
             <input onChange={handleChange} type="password" className="form-control" id="password"/>
+        </div>
+
+        <div class="mb-3">
+            <label htmlFor="age" classNam="form-label">Age :</label>
+            <input onChange={handleChange} type="number" className="form-control" id="age"/>
+        </div>
+
+        <div class="mb-3">
+            <label htmlFor="phone" classNam="form-label">Phone :</label>
+            <input onChange={handleChange} type="text" className="form-control" id="phone"/>
         </div>
  
         <div className="d-grid">
