@@ -53,13 +53,13 @@ function Signin(props) {
           <label htmlFor="email" className="form-label">Email address</label>
           <input onChange={handleChange} type="email" className="form-control" id="email" aria-describedby="emailHelp"/>
       </div>
-      <div class="mb-3">
-          <label htmlFor="password" classNam="form-label">Password</label>
+      <div className="mb-3">
+          <label htmlFor="password" className="form-label">Password</label>
           <input onChange={handleChange} type="password" className="form-control" id="password"/>
       </div>
 
       <div className="d-grid">
-          <button type="submit" class="btn btn-primary">Login</button>
+          <button type="submit" className="btn btn-primary">Login</button>
       </div>
       </form>
       {JSON.stringify(participant)}

@@ -26,7 +26,7 @@ function Home(props) {
                    positionClass: "toastr-bottom-left"
                 })
 
-                localStorage.setItem('group_member', JSON.stringify(res.data))
+                localStorage.setItem('group_member', JSON.stringify(res.data.groupMember))
 
                 props.history.push('/game')
            }

@@ -9,15 +9,16 @@ import axios from "axios"
 function Rejoindre(props) {
 
     const [code, setCode] = useState("")
-
-    const handleChange = e => {
-        setCode({...code, [e.target.id]: e.target.value})
-    }
-
+    
+    // const handleChange = e => {
+    //     setCode({...code, [e.target.id]: e.target.value})
+    // }
+    
     const {participant, token} = isAuthenticated()
-
+    
         // =================== Start Code Creation Method Rejoindre in Group Member ============================
         const rejoindre = (e) => {
+            console.log('cliquéddd')
             e.preventDefault()
 
             axios.put(`${API_URL}/groupMember/rejoindre/${code}`, {participant: participant._id}, {
@@ -34,6 +35,7 @@ function Rejoindre(props) {
                       positionClass: "toastr-bottom-left"
                 })
                  console.log(res.data);
+                 localStorage.setItem('group_member', JSON.stringify(res.data))
                    props.history.push('/game')
                   
               }

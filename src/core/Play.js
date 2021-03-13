@@ -18,18 +18,15 @@ function Play(props) {
 
     if(questionCount < 15){
 
-      axios.get(`${API_URL}/question/${participant._id}`, {
-        headers: {
-          'Authorization': `Bearer ${token}`
-      }
-      }).then(res => {
+      axios.get(`${API_URL}/question/`).then(res => {
         if(res.error) {
           toastr.warning(res.error, 'Please Check Question !', {
                   positionClass: "toast-bottom-left",
           })
          }else{
+         console.log(res.data.questions)
           
-          setQuestion(res.data)
+          setQuestion(res.data.questions)
           setQuestionNum(questionCount + 1)
          }
       }).catch(err => {
@@ -42,7 +39,7 @@ function Play(props) {
          let idGroup = localStorage.getItem('group_member')
 
          const round = {
-   
+          
            question : questionId,
            participant : participant,
            participant_answer : answer
@@ -50,17 +47,17 @@ function Play(props) {
          };
    
    
-         const groupId = JSON.parse(idGroup).data.groupMember._id;
+         let groupId = JSON.parse(idGroup)._id
    
-         axios.post(`${API_URL}/round/create//${groupId}`, round)
+         axios.post(`${API_URL}/round/create/${groupId}`, round)
          .then(res => {
-           console.log(res);
+           console.log(res.data);
          })
     
         }else{
           let idGroup = localStorage.getItem('group_member')
 
-          const groupId = JSON.parse(idGroup).data.groupMember._id;
+          let groupId = JSON.parse(idGroup)._id
 
           axios.post(`${API_URL}/finalwinner/create/${groupId}`)
             .then(res => {
@@ -80,77 +77,71 @@ function Play(props) {
 
   }
 
-  // useEffect(() => {
-  //   let idGroup = localStorage.getItem('group_member')
-  //   const groupId = JSON.parse(idGroup).groupMember._id;
+  useEffect(() => {
+    let idGroup = localStorage.getItem('group_member')
+    
+    
+   let groupId = JSON.parse(idGroup)._id
+   
 
-  //   axios.get(`${API_URL}/round/create/${groupId}`)
-  //        .then((response) => {
-  //          if(response.data.error){
-  //            setParticipantReady(false)
-  //          }
-  //        }).catch(err => {
-  //          console.log(err);
-  //        })
+    axios.post(`${API_URL}/round/create/${groupId}`)
+         .then((response) => {
+           console.log(response.data.error)
+           if(response.data.error){
+             setParticipantReady(false)
+           }
+         }).catch(err => {
+           console.log(err);
+         })
 
-  //        let {participant, token} = isAuthenticated()
-  //        axios.get(`${API_URL}/question/${participant._id}` , {
-  //         headers: {
-  //           'Authorization': `Bearer ${token}`
-  //       }
-  //        }).then((response) => {
+      
+         axios.get(`${API_URL}/question/`).then((response) => {
+          console.log(response.data.questions);
+          setQuestion(response.data.questions);
+         }).catch(err => {
+           console.log(err);
+         })
 
-  //         setQuestion(response.data)
-  //        }).catch(err => {
-  //          console.log(err);
-  //        })
-
-  // }, [])
+  }, [])
 
   
   return ( 
     <div className="play">
-        
-        {participantReady ? (
-             <div className="endGame">
-             <h1>You need 4 player to Start the game ! </h1>
-         </div>
-        ):(
-            <Fragment>
-                <div className="container ">
+    {!participantReady ? (
+      <div className="endGame">
+      <h1>You need 4 player to Start the game ! </h1>
+  </div>
+ ):(
+     <Fragment>
+         <div className="container ">
             <p>{questionNum} /15</p>
-        {/* <h3>He is Light Yagami. He is the main character of ….. anime.</h3> */}
+            {/* <h3>He is Light Yagami. He is the main character of ….. anime.</h3> */}
 
-        <h3>{ question && question.question}</h3>
+            <h3>{ question && question.quest}</h3>
 
-        
-
+           
+  
             <div className="row justify-content-around">
-                <div className="col-4">
-                
-                <button type="button" onClick={()=>{ handleClick(question.answer,question._id) }}   className="btn btn-light ">{ question && question.answer} </button>
-                </div>
-                <div className="col-4">
-                
-                <button type="button"  onClick={()=>{ handleClick(question && question.false_choices[0],question._id) }}  className="btn btn-light">{ question && question.false_choices[0]}</button>
-                
-                </div>
+              <div className="col-12">
+                 <button type="button" onClick={()=>{ handleClick(question.answer,question._id) }}   className="btn btn-light ">{ question && question.answer} </button>
+              </div>
+              <div className="col-5  btn btn-danger">
+                <button type="button"  onClick={()=>{ handleClick(question && question.false_choices[0], question._id) }}  className="btn btn-danger">{ question && question.false_choices[0]}</button>
+              </div>
+              <div className="col-5 btn btn-primary">
+              <button type="button"  onClick={()=>{ handleClick(question && question.false_choices[1], question._id) }}  className="btn btn-primary">{ question && question.false_choices[1]}</button>
             </div>
-            <div className="row justify-content-around">
-                <div className="col-4">
-                
-                <button type="button"  onClick={()=>{ handleClick(question && question.false_choices[1],question._id) }}  className="btn btn-light">{ question && question.false_choices[1]}</button>
-                </div>
-                
             </div>
+           
         </div>
-            </Fragment>
-        )
+     </Fragment> 
+ )
 
 
-        
-        }
-        
+ 
+ }
+ 
+      
     </div>
  );
 }

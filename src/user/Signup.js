@@ -1,12 +1,14 @@
 import React, {useState} from 'react'
+import {Link, useHistory} from "react-router-dom"
 import toastr from 'toastr';
 import "toastr/build/toastr.css";
 
 import {API_URL} from "./../config"
 
-function Signup(props) {
+function Signup() {
+    let history = useHistory();
 
-    const [user, setUser] = useState({
+    const [participant, setParticipant] = useState({
         username: "",
         email: "",
         password: "",
@@ -15,7 +17,7 @@ function Signup(props) {
     })
 
     const handleChange = e => {
-        setUser({...user, [e.target.id]: e.target.value})
+        setParticipant({...participant, [e.target.id]: e.target.value})
     }
 
     const submitSignup = e => {
@@ -27,7 +29,7 @@ function Signup(props) {
                 "Accept": "application/json",
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify(user)
+            body: JSON.stringify(participant)
         }).then(res => res.json())
           .then(res => {
               if(res.error){
@@ -35,7 +37,7 @@ function Signup(props) {
                       positionClass: "toastr-bottom-left",
                   })
 
-                  props.history.push('/signin')
+                  history.push('/signin')
               }
           }).catch(err => toastr.error(err, "Server error !", {
               positionClass: "toastr-bottom-left"
@@ -44,33 +46,36 @@ function Signup(props) {
 
     const form = () => (
         <form onSubmit={submitSignup}>
-        <div class="mb-3">
+        <div className="mb-3">
             <label htmlFor="username" className="form-label">UserName :</label>
             <input onChange={handleChange} type="text" className="form-control" id="username" aria-describedby="emailHelp"/>
         </div>
-        <div class="mb-3">
-            <label htmlFor="email" classNam="form-label">Email address :</label>
+        <div className="mb-3">
+            <label htmlFor="email" className="form-label">Email address :</label>
             <input onChange={handleChange} type="email" className="form-control" id="email" aria-describedby="emailHelp"/>
         </div>
-        <div class="mb-3">
-            <label htmlFor="password" classNam="form-label">Password :</label>
+        <div className="mb-3">
+            <label htmlFor="password" className="form-label">Password :</label>
             <input onChange={handleChange} type="password" className="form-control" id="password"/>
         </div>
 
-        <div class="mb-3">
-            <label htmlFor="age" classNam="form-label">Age :</label>
+        <div className="mb-3">
+            <label htmlFor="age" className="form-label">Age :</label>
             <input onChange={handleChange} type="number" className="form-control" id="age"/>
         </div>
 
-        <div class="mb-3">
-            <label htmlFor="phone" classNam="form-label">Phone :</label>
+        <div className="mb-3">
+            <label htmlFor="phone" className="form-label">Phone :</label>
             <input onChange={handleChange} type="text" className="form-control" id="phone"/>
         </div>
  
         <div className="d-grid">
-            <button type="submit" class="btn btn-primary">Signup</button>
+            <button type="submit" className="btn btn-primary">Signup</button>
         </div>
+
+        {JSON.stringify(participant)}
         </form>
+       
     )
 
     return (
