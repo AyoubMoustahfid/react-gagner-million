@@ -11,6 +11,7 @@ import Play from "./core/Play"
 import Navbar from "./core/Navbar"
 import Dashboard from "./admin/Dashboard"
 import AddQuestion from "./admin/AddQuestion"
+import AddGift from "./admin/AddGift"
 
 
 
@@ -26,6 +27,7 @@ function Routes() {
             <Navbar/>
             <Switch>
               <AdminRoute path='/admin/dashboard/participant' exact component={AddQuestion} />
+              <AdminRoute path='/admin/dashboard/gift' exact component={AddGift} />
               <AdminRoute path='/admin/dashboard' exact component={Dashboard} />
               <PrivateRoute path='/' exact component={Home} />
               <PrivateRoute path='/winner' exact component={Winner} />

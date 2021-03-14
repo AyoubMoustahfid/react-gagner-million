@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import background from "../images/gift.png"
+import {API_URL} from "./../config"
 
 
 const Winner = () => {
@@ -17,18 +19,18 @@ const Winner = () => {
         console.log(idWinner);
         console.log('====================================');
 
-        axios.get(`${process.env.REACT_APP_URL_API}/participant/get/${idWinner}`)
-        .then(function (response) {
-         
+        axios.get(`localhost:8080/api/participant/${idWinner}`)
+        .then( (response) => {
+          console.log(response.data);
           setWinner(response.data)
-            console.log(response.data);
+           
         
         }).catch(function (err) {
           console.log(err);
       });
 
 
-      axios.get(`${process.env.REACT_APP_URL_API}/gifts/getGift/${idGift}`)
+      axios.get(`${API_URL}/gift/getGift/${idGift}`)
       .then(function (response) {
        
         setGift(response.data)
@@ -45,10 +47,20 @@ const Winner = () => {
       },[])
 
     return ( 
-        <div className="winner">
+        <div className="container">
+          <div className="row align-items-center">
+          
+            <div className="col-6">
+                <img src={background}/>
+            </div>
+
+            <div className="col-6">
             <h1>The Winner is :  </h1>
-            <h1>{winner.full_name}</h1>
+            <h1>{winner.username}</h1>
             <h1>Gift :{gift.name} </h1>
+            </div>
+          </div>
+           
         </div>
      );
 }

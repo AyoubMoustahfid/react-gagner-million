@@ -64,6 +64,11 @@ return (
               <li>
                 <Link className="dropdown-item" to={`${isAuthenticated() && isAuthenticated().participant.role===1 ?'/admin' : '' }/dashboard`} >Question</Link>
               </li>
+
+              <li>
+                <Link className="dropdown-item" to={`${isAuthenticated() && isAuthenticated().participant.role===1 ?'/admin' : '' }/dashboard/gift`} >Gift</Link>
+              </li>
+
               </Fragment>
             </ul>
           </li>

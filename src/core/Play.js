@@ -11,6 +11,8 @@ function Play(props) {
 
   const [participantReady, setParticipantReady] = useState(true)
 
+
+
   let handleClick = (answer, questionId) => {
 
     let questionCount = questionNum
@@ -18,15 +20,15 @@ function Play(props) {
 
     if(questionCount < 15){
 
-      axios.get(`${API_URL}/question/`).then(res => {
+      axios.get(`${API_URL}/question/random/`).then(res => {
         if(res.error) {
           toastr.warning(res.error, 'Please Check Question !', {
                   positionClass: "toast-bottom-left",
           })
          }else{
-         console.log(res.data.questions)
+         console.log(res.data);
           
-          setQuestion(res.data.questions)
+          setQuestion(res.data)
           setQuestionNum(questionCount + 1)
          }
       }).catch(err => {
@@ -95,9 +97,9 @@ function Play(props) {
          })
 
       
-         axios.get(`${API_URL}/question/`).then((response) => {
-          console.log(response.data.questions);
-          setQuestion(response.data.questions);
+         axios.get(`${API_URL}/question/random/`).then((response) => {
+          
+          setQuestion(response.data);
          }).catch(err => {
            console.log(err);
          })
@@ -119,19 +121,19 @@ function Play(props) {
 
             <h3>{ question && question.quest}</h3>
 
-           
+          
   
-            <div className="row justify-content-around">
-              <div className="col-12">
-                 <button type="button" onClick={()=>{ handleClick(question.answer,question._id) }}   className="btn btn-light ">{ question && question.answer} </button>
-              </div>
-              <div className="col-5  btn btn-danger">
-                <button type="button"  onClick={()=>{ handleClick(question && question.false_choices[0], question._id) }}  className="btn btn-danger">{ question && question.false_choices[0]}</button>
-              </div>
-              <div className="col-5 btn btn-primary">
-              <button type="button"  onClick={()=>{ handleClick(question && question.false_choices[1], question._id) }}  className="btn btn-primary">{ question && question.false_choices[1]}</button>
-            </div>
-            </div>
+           <div className="row justify-content-around">
+           <div className="col-12">
+              <button type="button" onClick={()=>{ handleClick(question.answer,question._id) }}   className="btn btn-light ">{ question && question.answer} </button>
+           </div>
+           <div className="col-5  btn btn-danger">
+             <button type="button"  onClick={()=>{ handleClick(question && question.false_choices[0], question._id) }}  className="btn btn-danger">{ question && question.false_choices[0]}</button>
+           </div>
+           <div className="col-5 btn btn-primary">
+           <button type="button"  onClick={()=>{ handleClick(question && question.false_choices[1], question._id) }}  className="btn btn-primary">{ question && question.false_choices[1]}</button>
+         </div>
+         </div>
            
         </div>
      </Fragment> 

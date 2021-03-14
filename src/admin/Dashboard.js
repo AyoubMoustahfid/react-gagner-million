@@ -42,7 +42,7 @@ function Dashboard() {
                     positionClass: "toast-bottom-left",
                 })
            }else{
-            toastr.success(`Question created`, 'new Category', {
+            toastr.success(`Question created`, 'new Question', {
                     positionClass: "toast-bottom-left",
                 })
 
